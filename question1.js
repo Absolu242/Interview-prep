@@ -6,16 +6,13 @@
 
 //******First solution*******//
 
-const nums = [1, 3, 7, 9, 2]
+const nums = [1, 2, 7, 9, 3]
 let target = 11
 
 function FindIndex01(nums, target) {
   for (let i = 0; i <= nums.length; i++) {
     for (let j = i + 1; j <= nums.length; j++) {
-      let p1 = nums[i]
-      let p2 = nums[j]
-
-      if (p1 + p2 === target) {
+      if (nums[i] + nums[j] === target) {
         return [i, j]
       }
     }
@@ -38,5 +35,24 @@ const FindIndex02 = function (nums, target) {
   return null
 }
 
+//Optimized time and space complexity
+//******Third solution*******//
+
+function FindIndex03(nums, target) {
+  const numsMap = {}
+  for (let i = 0; i <= nums.length; i++) {
+    const currentMapVal = numsMap[nums[i]]
+
+    if (currentMapVal >= 0) {
+      return [currentMapVal, i]
+    } else {
+      const numberFind = target - nums[i]
+      numsMap[numberFind] = i
+    }
+  }
+  return null
+}
+
 console.log(FindIndex01(nums, target))
 console.log(FindIndex02(nums, target))
+console.log(FindIndex03(nums, target))
